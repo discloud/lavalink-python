@@ -38,7 +38,6 @@ De maneira mais rapida de resolver é deletando o diretório `java` (que é o di
 ### Quero fazer backup do meu arquivos mas é muito pessado download o que eu faço?
 Para reduzir o peso do download do backup você pode remover:
 - o diretório `java`
-- o diretório `node_modules` que se encontra no diretório [`bot`](./bot/) (já que a Discloud não consegue controlar esse `node_modules` devido não estar na raiz da Instancia)
 - caso não queira receber os no backup dos logs remova tambem o diretório `logs`
 
 ### Porque o meu BOT demora muito para ficar online?
