@@ -6,5 +6,5 @@
     "lavalink": "https://ci.fredboat.com/repository/download/Lavalink_Build/8803:id/Lavalink.jar?guest=1",
     
     "fileRunBot": "main.py",
-    "logMODE": false
+    "logMODE": true
 }
