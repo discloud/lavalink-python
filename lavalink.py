@@ -96,7 +96,7 @@ def is_file_valid(dir,name):
 ### RODAR LAVALINK ###
 async def run_lavalink():
     print("Iniciando Lavalink...")
-    java_path = f'../jdk-{config["openJDK"]["version"]}/bin/java'
+    java_path = f'{os.getcwd()}/java/jdk-{config["openJDK"]["version"]}/bin/java'
     global lavalink_process
     lavalink_process = Popen([java_path,'-jar','Lavalink.jar'],cwd='./java/lavalink')
     global lavalink_tries
