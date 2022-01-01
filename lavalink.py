@@ -96,9 +96,8 @@ def is_file_valid(dir,name):
 ### RODAR LAVALINK ###
 async def run_lavalink():
     print("Iniciando Lavalink...")
-    java_path = f'{os.getcwd()}/java/jdk-{config["openJDK"]["version"]}/bin/java'
     global lavalink_process
-    lavalink_process = Popen([java_path,'-jar','Lavalink.jar'],cwd='./java/lavalink')
+    lavalink_process = Popen(['java','-jar','Lavalink.jar'],cwd='./java/lavalink')
     global lavalink_tries
     if lavalink_tries < 3:
         if lavalink_process.poll == None:
@@ -213,37 +212,6 @@ async def run():
     if not is_file_valid("./bot",config['fileRunBot']):
         print(f"O arquivo {config['fileRunBot']} não foi encontrado")
         sys.exit(1)
-    # se não existir a pasta java = não tem o java, então vai baixar o java
-    if not is_dir_valid('./java',f'jdk-{config["openJDK"]["version"]}'):
-        print("Baixando o openJDK")
-        down_jdk = None
-        down_jdk_cmd  = ["wget","-c",'-O',"java.tar.gz",config['openJDK']['linkDown']]
-        if config['logMODE']: # se os logs estiverem ativados, salvar os logs do download
-            down_jdk_cmd.insert(2, f"../logs/downjava-{nw}.log")
-            down_jdk_cmd.insert(2, f"-o")
-        down_jdk = Popen(down_jdk_cmd,encoding='utf-8',cwd='./java',stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        down_jdk.wait()
-        if down_jdk.returncode != 0:
-            print(f"Erro ao baixar o openJDK: - {down_jdk.stderr.read().encode('utf-8')}")
-            sys.exit(1)    
-        print("OpenJDK baixado com sucesso")
-        print("Extraindo o OpenJDK")
-        extract = Popen(["tar","-zxvf","java.tar.gz"],encoding='utf-8',cwd="./java",stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        extract.wait()
-        if extract.returncode != 0:
-            print(f"Erro ao extrair o OpenJDK: - {extract.stderr.read().encode('utf-8')}")
-            sys.exit(1)
-        # salvar logs da extração do java
-        if config['logMODE']:
-            with open(f"./logs/extractJava-{nw}.log",'w+') as f:
-                f.write(extract.stdout.read())
-        print("Extração completa")
-        # remover o java para liberar espaço
-        try:
-            os.remove("./java/java.tar.gz")
-        except Exception as ex:
-            print("Falha ao remover o java.tar.gz")
-            print(ex.args)
     if not is_dir_valid('./java','lavalink'): # criar a pasta lavalink dentro da pasta java
         try:
             os.mkdir("./java/lavalink")
